@@ -3,6 +3,12 @@ const app = require("./app");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./src/config/config.env" });
 
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log(`Shutting down the server due to Uncaught Exception`);
+  process.exit(1);
+});
+
 const port = process.env.PORT;
 const connectDB = require("./config/database");
 connectDB();
